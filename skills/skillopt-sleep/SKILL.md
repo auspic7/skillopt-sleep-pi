@@ -70,8 +70,10 @@ bash "$RUNNER" adopt    --source pi --project "$(pwd)"    # apply staged proposa
 
 - `--source pi` selects pi session harvesting (native; added upstream).
 - Default backend is `mock` (deterministic, **no API spend**) — good for trying the plumbing.
-- Add `--backend claude` or `--backend codex` to spend the user's real budget for genuine
-  improvement. Replay runs against that backend; harvesting still reads pi sessions.
+- `--backend pi` (recommended for pi users) replays via your local `pi -p`, using
+  whatever model you've configured in pi (e.g. `zai/glm-5.2`) — no separate API
+  key if pi is already authenticated. Keeps source and backend on the same agent.
+- Add `--backend claude` or `--backend codex` to spend those vendors' budgets instead.
 - Scope defaults to the invoked project; `--scope all` harvests every project.
 
 ### Scheduling (nightly)
@@ -90,7 +92,7 @@ relevant API key is in the environment cron will see.
 |---|---|---|
 | `--source pi` | (set above) | Harvest pi sessions |
 | `--scope all\|invoked` | invoked | Harvest scope |
-| `--backend mock\|claude\|codex\|copilot` | mock | Replay backend (mock = no API spend) |
+| `--backend mock\|pi\|claude\|codex\|copilot` | mock | Replay backend (mock = no API spend; pi = use pi's configured model) |
 | `--model NAME` | backend default | Override replay model |
 | `--lookback-hours N` | 72 | Harvest window (0 = full history) |
 | `--max-tasks N` | 40 | Cap mined tasks |
